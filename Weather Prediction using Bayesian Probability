@@ -1,0 +1,82 @@
+# Weather Prediction using Bayesian Probability
+
+# -----------------------------
+# Dataset
+# -----------------------------
+
+total_days = 20
+
+rain_days = 8
+not_rain_days = 12
+
+cloudy_rain_days = 7
+cloudy_not_rain_days = 3
+
+
+# -----------------------------
+# Calculate Prior Probabilities
+# -----------------------------
+
+P_Rain = rain_days / total_days
+P_Not_Rain = not_rain_days / total_days
+
+
+# -----------------------------
+# Calculate Conditional Probabilities
+# -----------------------------
+
+P_Cloudy_given_Rain = cloudy_rain_days / rain_days
+P_Cloudy_given_Not_Rain = cloudy_not_rain_days / not_rain_days
+
+
+# -----------------------------
+# Calculate P(Cloudy)
+# Using Total Probability
+# -----------------------------
+
+P_Cloudy = (
+    P_Cloudy_given_Rain * P_Rain
+    + P_Cloudy_given_Not_Rain * P_Not_Rain
+)
+
+
+# -----------------------------
+# Apply Bayes' Theorem
+# -----------------------------
+
+P_Rain_given_Cloudy = (
+    P_Cloudy_given_Rain * P_Rain
+) / P_Cloudy
+
+P_Not_Rain_given_Cloudy = (
+    P_Cloudy_given_Not_Rain * P_Not_Rain
+) / P_Cloudy
+
+
+# -----------------------------
+# Display Results
+# -----------------------------
+
+print("WEATHER PREDICTION USING BAYESIAN PROBABILITY")
+print("=" * 50)
+
+print(f"P(Rain) = {P_Rain:.2f}")
+print(f"P(Not Rain) = {P_Not_Rain:.2f}")
+
+print(f"P(Cloudy | Rain) = {P_Cloudy_given_Rain:.2f}")
+print(f"P(Cloudy | Not Rain) = {P_Cloudy_given_Not_Rain:.2f}")
+
+print(f"P(Rain | Cloudy) = {P_Rain_given_Cloudy:.2f}")
+print(f"P(Not Rain | Cloudy) = {P_Not_Rain_given_Cloudy:.2f}")
+
+
+# -----------------------------
+# Predict Weather
+# -----------------------------
+
+if P_Rain_given_Cloudy > P_Not_Rain_given_Cloudy:
+    prediction = "Rain"
+else:
+    prediction = "Not Rain"
+
+print("\nPredicted Weather =", prediction)
